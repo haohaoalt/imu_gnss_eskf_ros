@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.0.2)
+cmake_minimum_required(VERSION 3.10)
 project(imu_gnss_eskf)
 
 add_compile_options(-std=c++14)
@@ -7,8 +7,10 @@ find_package(catkin REQUIRED COMPONENTS
   nav_msgs
   eigen_conversions
 )
+# include_directories(${PROJECT_SOURCE_DIR}/3rd/GeographicLib/include/)
 catkin_package()
 find_package(Eigen3  REQUIRED)
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "/usr/share/cmake/geographiclib/")
 find_package (GeographicLib REQUIRED)
 
 include_directories(

@@ -24,8 +24,11 @@ public:
         eskf_ptr_ = std::make_shared<ESKF>(acc_n, gyr_n, acc_w, gyr_w, p_I_GNSS);
 
         // ROS sub & pub
-        std::string topic_imu = "/imu/data";
-        std::string topic_gps = "/fix";
+        // std::string topic_imu = "/imu/data";
+        std::string topic_imu = "/imu";
+
+        // std::string topic_gps = "/fix";
+        std::string topic_gps = "/gps/fix";
 
         imu_sub_ = nh.subscribe(topic_imu, 10, &ESKF_Fusion::imu_callback, this);
         gnss_sub_ = nh.subscribe(topic_gps, 10, &ESKF_Fusion::gnss_callback, this);
@@ -78,10 +81,11 @@ void ESKF_Fusion::imu_callback(const sensor_msgs::ImuConstPtr &imu_msg)
 
 void ESKF_Fusion::gnss_callback(const sensor_msgs::NavSatFixConstPtr &gnss_msg)
 {
-    if(gnss_msg->status.status != 2)
+    // if(gnss_msg->status.status != 2)
+    if (gnss_msg->status.status != 0)
     {
-        std::cout<<"[ ESKF ] Bad GNSS data."<<std::endl;
-        return;
+            std::cout << "[ ESKF ] Bad GNSS data." << std::endl;
+            return;
     }
     GNSSDataPtr gnss_data_ptr = std::make_shared<GNSSData>();
     gnss_data_ptr->timestamp = gnss_msg->header.stamp.toSec();
