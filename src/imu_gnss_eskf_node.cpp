@@ -37,8 +37,8 @@ public:
         odom_pub_ = nh.advertise<nav_msgs::Odometry>("nav_odom", 10);
 
         // log files
-        file_gnss_.open("/home/rick/gnss.csv");
-        file_state_.open("/home/rick/fused_state.csv");
+        file_gnss_.open("/home/ubuntu/Dev/docker/u18_cuda/zouyajing_ws/gnss.csv");
+        file_state_.open("/home/ubuntu/Dev/docker/u18_cuda/zouyajing_ws/fused_state.csv");
 
         std::cout<<"[ ESKF ] Start."<<std::endl;
     }
